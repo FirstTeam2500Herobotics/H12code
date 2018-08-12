@@ -1,13 +1,13 @@
 package org.usfirst.frc.team2500.subSystems.chassis;
   
- import org.usfirst.frc.team2500.robot.RobotMap;
-  
- import com.kauailabs.navx.frc.AHRS;
+import org.usfirst.frc.team2500.robot.RobotMap;
+
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SPI;
- import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,6 +17,7 @@ public class Chassis extends Subsystem{
 	//Making only one chassis exist in the code
 	public static Chassis instance;
 	
+	//This function return the chassis to be used in other places
 	public static Chassis getInstance()
     {
 		if (instance == null)
@@ -24,18 +25,17 @@ public class Chassis extends Subsystem{
 	
 		return instance;
     }
-
-	final double encoderPulceRate = 250/13208.5;
 	
+    //To get this number put the robot on the ground with a test program that just prints encoder distance to the console.
+	//After that push the robot in a straight line for x inches (I do like 250) then divide that by the number you got (ie. 250/13208.5)
+	final double encoderPulseRate = 250/13208.5;
+	
+	//The drive wheels and the encoders that go with them
 	private Talon leftMotor;
 	private Encoder leftEncoder;
 
 	private Talon rightMotor;
 	private Encoder rightEncoder;
-	
-	//This is the shifter for the gear boxes. Both sides are hooked up to the same solenoid so they cant fire independely
-	//If build yells at you about only one side shifting tell them to go fuck themselfs -John
-	private Solenoid shifter;
 	
 	public double driveScale = 1;
 
@@ -48,10 +48,10 @@ public class Chassis extends Subsystem{
 		rightMotor = new Talon(RobotMap.RIGHT_DRIVE_PORT);
 		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT1,RobotMap.RIGHT_ENCODER_PORT2);
 
-		leftEncoder.setDistancePerPulse(encoderPulceRate);
+		leftEncoder.setDistancePerPulse(encoderPulseRate);
 		leftEncoder.reset();
 		//The right is negitive because it is a mirror of the left side
-		rightEncoder.setDistancePerPulse(-encoderPulceRate);
+		rightEncoder.setDistancePerPulse(-encoderPulseRate);
 		rightEncoder.reset();
 		
 		shifter = new Solenoid(RobotMap.SHIFTER_PORT);
@@ -107,40 +107,10 @@ public class Chassis extends Subsystem{
 		return rate;
 	}
 	
-	public double getRotation(){
-    	SmartDashboard.putNumber("rotation",gyro.getAngle());
+	public double getRotation() {
+		SmartDashboard.putNumber("rotation", gyro.getAngle());
 		return gyro.getAngle();
 	}
-
-	//Auto shifting
-	private final double MAX_HIGH_GEAR_SPEED = 160;
-	private final double MAX_LOW_GEAR_SPEED = 55;
-
-	//Magic number used to make highgear autoshift smooth
-	//It assumes that the acceleration is linear and makes the low gear max speed match up with that same value on the highgear equation
-	private final double MIN_MAX_CONVERTER = 1/(MAX_LOW_GEAR_SPEED/MAX_HIGH_GEAR_SPEED);
-
-	//What persenct of maxspeed do we shift at because we usualy dont get all the way up
-	private final double LOW_GEAR_SHIFT_PERCENT_HIGH = 0.9;
-	//Switch back a bit lower then the switch up to stop rapid toggle between the two
-	private final double LOW_GEAR_SHIFT_PERCENT_LOW = 0.6;
-
-	public void shiftingTankDrive(double left,double right){
-		double averageRate = Math.abs(getAverageRate());
-
-		if(averageRate > MAX_LOW_GEAR_SPEED * LOW_GEAR_SHIFT_PERCENT_HIGH){
-			shifter.set(true);
-			tankDrive(left,right);
-			return;
-		}
-		if(averageRate < MAX_LOW_GEAR_SPEED * LOW_GEAR_SHIFT_PERCENT_LOW){
-			shifter.set(false);
-		}
-
-		tankDrive(left*MIN_MAX_CONVERTER,right*MIN_MAX_CONVERTER);
-	}
-	
-
 
 	public void tankDrive(double left,double right){
 		leftMotor.setSpeed(left * driveScale);
@@ -148,10 +118,10 @@ public class Chassis extends Subsystem{
 	}
 
 	public void arcadeDrive(double throttle, double turn) {
-	    arcadeDrive(throttle, turn, true, true);
+	    arcadeDrive(throttle, turn, true);
 	}
 	
-	public void arcadeDrive(double throttle,double turn, boolean square, boolean shifters){
+	public void arcadeDrive(double throttle,double turn, boolean square){
 
 	    double leftMotorOutput;
 	    double rightMotorOutput;
@@ -178,15 +148,6 @@ public class Chassis extends Subsystem{
 	      }
 	    }
 	    
-	    if(shifters){
-	    	shiftingTankDrive(leftMotorOutput,rightMotorOutput * -1);
-	    }
-	    else{
-	    	tankDrive(leftMotorOutput,rightMotorOutput * -1);
-	    }
-	}
-	
-	public boolean getGear(){
-		return shifter.get();
+	    tankDrive(leftMotorOutput,rightMotorOutput * -1);
 	}
 }

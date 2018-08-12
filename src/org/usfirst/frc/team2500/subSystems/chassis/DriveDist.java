@@ -40,7 +40,7 @@ public class DriveDist extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Chassis.getInstance().arcadeDrive(output, Chassis.getInstance().getRotation() * sP,false,false);
+		Chassis.getInstance().arcadeDrive(output, Chassis.getInstance().getRotation() * sP,false);
 	}
     
     protected boolean isFinished() {

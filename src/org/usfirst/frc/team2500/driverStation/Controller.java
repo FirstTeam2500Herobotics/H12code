@@ -38,7 +38,7 @@ public class Controller {
     	SmartDashboard.putNumber("Rotation",0);
 	}
 	
-    //Function to remove the controler not homing properly
+    //Function to remove the controller not homing properly
 	public double handleDeadband(double val, double deadband) {
 		if(Math.abs(val) > deadband){
 			return val;
@@ -58,7 +58,7 @@ public class Controller {
 		return handleDeadband(move,0.05);
 	}
     
-    //Return the value you get from subtracing the trigers
+    //Return the value you get from subtracting the triggers
     public double get_Triggers(){
     	double value = pilot.getRawAxis(2) - pilot.getRawAxis(3);
     	SmartDashboard.putNumber("Lift Speed",value);

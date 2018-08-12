@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		
 	}
-	
+
 	@Override
 	public void autonomousInit() {
 		//Check what auto is picked
@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 			System.out.println("Something went wrong in starting auto");
 		}
 	}
-	
+
 	@Override
 	public void autonomousPeriodic() {
 		//Run auto
