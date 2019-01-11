@@ -12,14 +12,14 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+//TODO: Fix port names
 public class Chassis extends Subsystem{
 
 	//Making only one chassis exist in the code
 	public static Chassis instance;
 	
 	//This function return the chassis to be used in other places
-	public static Chassis getInstance()
-    {
+	public static Chassis getInstance(){
 		if (instance == null)
 		   instance = new Chassis();
 	
@@ -28,7 +28,7 @@ public class Chassis extends Subsystem{
 	
     //To get this number put the robot on the ground with a test program that just prints encoder distance to the console.
 	//After that push the robot in a straight line for x inches (I do like 250) then divide that by the number you got (ie. 250/13208.5)
-	final double encoderPulseRate = 250/13208.5;
+	private static final double ENCODER_PULSE_RATE = 250/13208.5;
 	
 	//The drive wheels and the encoders that go with them
 	private Talon leftMotor;
@@ -36,28 +36,26 @@ public class Chassis extends Subsystem{
 
 	private Talon rightMotor;
 	private Encoder rightEncoder;
-	
+
+	//Scaler for if we want to switch the direction
 	public double driveScale = 1;
 
 	private AHRS gyro;
 	
 	public Chassis(){
-		leftMotor = new Talon(RobotMap.LEFT_DRIVE_PORT);
-		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT1,RobotMap.LEFT_ENCODER_PORT2);
+		leftMotor = new Talon(RobotMap.DRIVE_LEFT_MOTOR);
+		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODER1,RobotMap.DRIVE_LEFT_ENCODER2);
 
-		rightMotor = new Talon(RobotMap.RIGHT_DRIVE_PORT);
-		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT1,RobotMap.RIGHT_ENCODER_PORT2);
+		rightMotor = new Talon(RobotMap.DRIVE_RIGHT_MOTOR);
+		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODER1,RobotMap.DRIVE_RIGHT_ENCODER2);
 
-		leftEncoder.setDistancePerPulse(encoderPulseRate);
-		leftEncoder.reset();
+		leftEncoder.setDistancePerPulse(ENCODER_PULSE_RATE);
 		//The right is negitive because it is a mirror of the left side
-		rightEncoder.setDistancePerPulse(-encoderPulseRate);
-		rightEncoder.reset();
-		
-		shifter = new Solenoid(RobotMap.SHIFTER_PORT);
+		rightEncoder.setDistancePerPulse(-ENCODER_PULSE_RATE);
 		
 		gyro = new AHRS(SPI.Port.kMXP);
-		gyro.reset();
+
+		reset();
 	}
 	
 	//Will always be using arcade drive when nothing else is using it
@@ -65,7 +63,7 @@ public class Chassis extends Subsystem{
 	protected void initDefaultCommand() {
 		setDefaultCommand(new TeleOp());
 	}
-	
+
 	public void resetEncoder(){
 		leftEncoder.reset();
 		rightEncoder.reset();
@@ -73,6 +71,11 @@ public class Chassis extends Subsystem{
 
 	public void resetGyro() {
 		gyro.reset();
+	}
+
+	public void reset(){
+		resetEncoder();
+		resetGyro();
 	}
 	
 	public double getAverageDistance(){
@@ -116,16 +119,19 @@ public class Chassis extends Subsystem{
 		leftMotor.setSpeed(left * driveScale);
 		rightMotor.setSpeed(right * driveScale);
 	}
-
-	public void arcadeDrive(double throttle, double turn) {
-	    arcadeDrive(throttle, turn, true);
-	}
 	
-	public void arcadeDrive(double throttle,double turn, boolean square){
+	public void arcadeDrive(double throttle, double turn, boolean square){
 
 	    double leftMotorOutput;
 	    double rightMotorOutput;
 
+	    //Square inputs preserving sign
+	    if(square){
+			throttle = throttle * throttle * (throttle / Math.abs(throttle));
+            turn = turn * turn * (turn / Math.abs(turn));
+		}
+
+		//Get the largest value for any input
 	    double maxInput = Math.copySign(Math.max(Math.abs(throttle), Math.abs(turn)), throttle);
 
 	    if (throttle >= 0.0) {
@@ -137,7 +143,8 @@ public class Chassis extends Subsystem{
 	        leftMotorOutput = throttle + turn;
 	        rightMotorOutput = maxInput;
 	      }
-	    } else {
+	    }
+	    else {
 	      // Third quadrant, else fourth quadrant
 	      if (turn >= 0.0) {
 	        leftMotorOutput = throttle + turn;
@@ -149,5 +156,9 @@ public class Chassis extends Subsystem{
 	    }
 	    
 	    tankDrive(leftMotorOutput,rightMotorOutput * -1);
+	}
+
+	public void arcadeDrive(double throttle, double turn) {
+		arcadeDrive(throttle, turn, true);
 	}
 }

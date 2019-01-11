@@ -30,7 +30,6 @@ public class DriveDist extends PIDCommand {
 
 		System.out.println("Driving to: " + distance);
 		getPIDController().setSetpoint(distance);
-		
 	}
 
 	@Override

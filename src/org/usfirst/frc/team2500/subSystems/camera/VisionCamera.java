@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 
 public class VisionCamera {
 	
-	
 	public static VisionCamera instance;
 	
 	public static VisionCamera getInstance()
@@ -43,7 +42,7 @@ public class VisionCamera {
 					}
 				}
 				Rect boundingBox = Imgproc.boundingRect(biggest);
-				// ~ centor for exact do calc with moments
+				// ~ center for exact do calc with moments
 				double centerX = (boundingBox.x) + (boundingBox.width/2);
 				double centerY = (boundingBox.y) + (boundingBox.height/2);
 
