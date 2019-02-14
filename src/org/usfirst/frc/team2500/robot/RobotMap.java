@@ -24,6 +24,8 @@ public class RobotMap {
 
 	public static final int LIFT_WINCH_ENCODER1 = 4;
 	public static final int LIFT_WINCH_ENCODER2 = 5;
+
+	public static final int DRIVE_DIRECTION_LED = 6;
 	
 	// Pneumatics ports
 	public static final int INTAKE_ACTUATOR_SOLENOID = 0;

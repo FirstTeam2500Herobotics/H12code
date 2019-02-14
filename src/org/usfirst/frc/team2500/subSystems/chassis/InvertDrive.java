@@ -8,10 +8,11 @@ public class InvertDrive extends Command {
 		
 	}
 	
-    protected void initialize() {
+	protected void initialize() {
 		System.out.println("Inverting the drive");
-    	Chassis.getInstance().driveScale = Chassis.getInstance().driveScale * -1;
-    }
+		Chassis.getInstance().driveScale = Chassis.getInstance().driveScale * -1;
+		Chassis.getInstance().toggleDirectionLED();
+	}
 	
 	@Override
 	protected boolean isFinished() {

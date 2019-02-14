@@ -4,6 +4,7 @@ import org.usfirst.frc.team2500.robot.RobotMap;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SPI;
@@ -41,7 +42,9 @@ public class Chassis extends Subsystem{
 	public double driveScale = 1;
 
 	private AHRS gyro;
-	
+
+	private DigitalOutput frontLED;
+
 	public Chassis(){
 		leftMotor = new Talon(RobotMap.DRIVE_LEFT_MOTOR);
 		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODER1,RobotMap.DRIVE_LEFT_ENCODER2);
@@ -54,6 +57,8 @@ public class Chassis extends Subsystem{
 		rightEncoder.setDistancePerPulse(-ENCODER_PULSE_RATE);
 		
 		gyro = new AHRS(SPI.Port.kMXP);
+
+		frontLED = DigitalOutput(RobotMap.DRIVE_DIRECTION_LED);
 
 		reset();
 	}
@@ -113,6 +118,14 @@ public class Chassis extends Subsystem{
 	public double getRotation() {
 		SmartDashboard.putNumber("rotation", gyro.getAngle());
 		return gyro.getAngle();
+	}
+
+	public void setDirectionLED(boolean direction) {
+		frontLED.set(direction);
+	}
+
+	public void toggleDirectionLED() {
+		frontLED.set(!frontLED.get());
 	}
 
 	public void tankDrive(double left,double right){
