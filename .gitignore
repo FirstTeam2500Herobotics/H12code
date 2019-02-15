@@ -1,5 +1,7 @@
 .gradle
 
+.settings
+
 .vscode
 
 .wpilib
@@ -15,3 +17,7 @@ gradlew.bat
 settings.gradle
 
 bin
+
+.classpath
+
+.project
