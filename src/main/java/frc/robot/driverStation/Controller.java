@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2500.driverStation;
+package frc.robot.driverStation;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

@@ -1,8 +1,8 @@
-package org.usfirst.frc.team2500.subSystems.lift;
+package frc.robot.subSystems.lift;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class DriveDist extends PIDCommand {
+public class SetHeight extends PIDCommand {
 
     private final static double P = 1.0;
     private final static double I = 0.0;
@@ -12,7 +12,7 @@ public class DriveDist extends PIDCommand {
 
     private double target;
 
-    public DriveDist(double target, double timeout){
+    public SetHeight(double target, double timeout){
         super("Drive",P, I, D);
         requires(Lift.getInstance());
 
@@ -39,7 +39,7 @@ public class DriveDist extends PIDCommand {
 
     @Override
     protected void usePIDOutput(double output) {
-        Lift.getInstance().setSpeed();
+        Lift.getInstance().setSpeed(output);
     }
 
     protected boolean isFinished() {

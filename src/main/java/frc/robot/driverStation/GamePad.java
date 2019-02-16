@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2500.driverStation;
+package frc.robot.driverStation;
 
 public class GamePad {
 	

@@ -1,8 +1,6 @@
-package org.usfirst.frc.team2500.subSystems.chassis;
+package frc.robot.subSystems.chassis;
   
-import org.usfirst.frc.team2500.robot.RobotMap;
-
-import com.kauailabs.navx.frc.AHRS;
+import frc.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -13,7 +11,10 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//TODO: Fix port names
+// import com.kauailabs.navx.frc.AHRS;
+
+//TODO: Get a gyro
+
 public class Chassis extends Subsystem{
 
 	//Making only one chassis exist in the code
@@ -41,7 +42,7 @@ public class Chassis extends Subsystem{
 	//Scaler for if we want to switch the direction
 	public double driveScale = 1;
 
-	private AHRS gyro;
+	// private AHRS gyro;
 
 	private DigitalOutput frontLED;
 
@@ -56,9 +57,9 @@ public class Chassis extends Subsystem{
 		//The right is negitive because it is a mirror of the left side
 		rightEncoder.setDistancePerPulse(-ENCODER_PULSE_RATE);
 		
-		gyro = new AHRS(SPI.Port.kMXP);
+		// gyro = new AHRS(SPI.Port.kMXP);
 
-		frontLED = DigitalOutput(RobotMap.DRIVE_DIRECTION_LED);
+		frontLED = new DigitalOutput(RobotMap.DRIVE_DIRECTION_LED);
 
 		reset();
 	}
@@ -75,7 +76,7 @@ public class Chassis extends Subsystem{
 	}
 
 	public void resetGyro() {
-		gyro.reset();
+		// gyro.reset();
 	}
 
 	public void reset(){
@@ -116,8 +117,10 @@ public class Chassis extends Subsystem{
 	}
 	
 	public double getRotation() {
-		SmartDashboard.putNumber("rotation", gyro.getAngle());
-		return gyro.getAngle();
+		// double angle = gyro.getAngle();
+		double angle = 0;
+		SmartDashboard.putNumber("rotation", angle);
+		return angle;
 	}
 
 	public void setDirectionLED(boolean direction) {

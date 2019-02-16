@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2500.robot;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.SPI;
 
@@ -14,7 +14,7 @@ public class RobotMap {
 	public static final int INTAKE_WHEELS_MOTOR = 3;
 
 	// DIO
-	public static final int BASE_GYROSCOPE = SPI.Port.kMXP;
+	// public static final int BASE_GYROSCOPE = SPI.Port.kMXP;
 
 	public static final int DRIVE_LEFT_ENCODER1 = 0;
 	public static final int DRIVE_LEFT_ENCODER2 = 1;

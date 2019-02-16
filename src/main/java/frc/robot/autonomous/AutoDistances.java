@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2500.autonomous;
+package frc.robot.autonomous;
 
 public class AutoDistances {
 

@@ -1,14 +1,15 @@
-package org.usfirst.frc.team2500.subSystems.lift;
+package frc.robot.subSystems.intake;
 
-import org.usfirst.frc.team2500.robot.RobotMap;
-import org.usfirst.frc.team2500.subSystems.intake.TeleOp;
+import frc.robot.RobotMap;
+import frc.robot.subSystems.intake.TeleOp;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class Intake extends Subsystem{
 
-	public static Lift instance;
+	public static Intake instance;
 
 	public static Intake getInstance(){
 		if (instance == null){

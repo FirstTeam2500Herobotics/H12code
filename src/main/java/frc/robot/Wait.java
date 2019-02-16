@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2500.robot;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 

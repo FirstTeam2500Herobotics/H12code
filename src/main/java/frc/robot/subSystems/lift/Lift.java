@@ -1,9 +1,10 @@
-package org.usfirst.frc.team2500.subSystems.lift;
+package frc.robot.subSystems.lift;
 
-import org.usfirst.frc.team2500.robot.RobotMap;
-import org.usfirst.frc.team2500.subSystems.lift.TeleOp;
+import frc.robot.RobotMap;
+import frc.robot.subSystems.lift.TeleOp;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lift extends Subsystem{
@@ -24,6 +25,10 @@ public static Lift instance;
 	public Lift(){
 		winch = new Talon(RobotMap.LIFT_WINCH_MOTOR);
 		winchEncoder = new Encoder(RobotMap.LIFT_WINCH_ENCODER1, RobotMap.LIFT_WINCH_ENCODER2);
+	}
+
+	public void resetEncoder(){
+		//TODO:
 	}
 
 	public void setSpeed(double speed){

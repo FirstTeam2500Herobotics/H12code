@@ -1,6 +1,6 @@
-package org.usfirst.frc.team2500.robot;
+package frc.robot;
 
-import org.usfirst.frc.team2500.autonomous.BaseLine;
+import frc.robot.autonomous.BaseLine;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;

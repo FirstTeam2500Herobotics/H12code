@@ -1,6 +1,6 @@
-package org.usfirst.frc.team2500.autonomous;
+package frc.robot.autonomous;
 
-import org.usfirst.frc.team2500.subSystems.chassis.DriveDist;
+import frc.robot.subSystems.chassis.DriveDist;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

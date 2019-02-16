@@ -1,6 +1,6 @@
-package org.usfirst.frc.team2500.subSystems.lift;
+package frc.robot.subSystems.lift;
 
-import org.usfirst.frc.team2500.driverStation.Controller;
+import frc.robot.driverStation.Controller;
 
 import edu.wpi.first.wpilibj.command.Command;
 
