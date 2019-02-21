@@ -1,9 +1,5 @@
 # H12code
 
-
-This is the repository for the 2018-19 season robot.
-
-
 ## Robot features
 * Chassis
   - The robot chassis has auto shifting gear boxes.
