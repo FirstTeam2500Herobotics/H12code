@@ -1,19 +1,18 @@
-package frc.robot.subSystems.intake;
+package frc.robot.subSystems.ballIntake;
 
 import frc.robot.RobotMap;
-import frc.robot.subSystems.intake.TeleOp;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 
-public class Intake extends Subsystem{
+public class BallIntake extends Subsystem{
 
-	public static Intake instance;
+	public static BallIntake instance;
 
-	public static Intake getInstance(){
+	public static BallIntake getInstance(){
 		if (instance == null){
-			instance = new Intake();
+			instance = new BallIntake();
 		}
 
 		return instance;
@@ -22,8 +21,8 @@ public class Intake extends Subsystem{
 	private Talon wheels;
 	private Solenoid actuator;
 
-	public Intake(){
-		wheels = new Talon(RobotMap.INTAKE_WHEELS_MOTOR);
+	public BallIntake(){
+		wheels = new Talon(RobotMap.BALL_INTAKE_WHEELS_MOTOR);
 		actuator = new Solenoid(RobotMap.INTAKE_ACTUATOR_SOLENOID);
 	}
 
@@ -35,8 +34,10 @@ public class Intake extends Subsystem{
 		actuator.set(position);
 	}
 
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new TeleOp());
+	public boolean getPosition(){
+		return actuator.get();
 	}
+
+	@Override
+	protected void initDefaultCommand() {}
 }

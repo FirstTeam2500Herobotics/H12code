@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lift extends Subsystem{
 
-public static Lift instance;
+	public static Lift instance;
 
 	public static Lift getInstance(){
 		if (instance == null){
@@ -17,26 +17,42 @@ public static Lift instance;
 		}
 
 		return instance;
-    }
+  }
 
-	private Talon winch;
-	private Encoder winchEncoder;
+	private Talon ballWinch;
+	private Talon panelWinch;
+	private Encoder ballEncoder;
+	private Encoder panelEncoder;
 
 	public Lift(){
-		winch = new Talon(RobotMap.LIFT_WINCH_MOTOR);
-		winchEncoder = new Encoder(RobotMap.LIFT_WINCH_ENCODER1, RobotMap.LIFT_WINCH_ENCODER2);
+		ballWinch = new Talon(RobotMap.BALL_LIFT_MOTOR);
+		panelWinch = new Talon(RobotMap.PANEL_LIFT_MOTOR);
+		ballEncoder = new Encoder(RobotMap.BALL_LIFT_ENCODER1, RobotMap.BALL_LIFT_ENCODER2);
+		panelEncoder = new Encoder(RobotMap.PANEL_LIFT_ENCODER1, RobotMap.PANEL_LIFT_ENCODER2);
 	}
 
-	public void resetEncoder(){
-		//TODO:
+	public void setBallSpeed(double speed){
+		ballWinch.set(speed);
 	}
 
-	public void setSpeed(double speed){
-		winch.set(speed);
+	public double getBallHeight() {
+		return ballEncoder.getDistance();
 	}
 
-	public double getHeight(){
-		return winchEncoder.getDistance();
+	public void resetBallEncoder() {
+		// TODO:
+	}
+
+	public void setPanelSpeed(double speed){
+		panelWinch.set(speed);
+	}
+
+	public double getPanelHeight() {
+		return panelEncoder.getDistance();
+	}
+
+	public void resetPanelEncoder() {
+		// TODO:
 	}
 
 	@Override

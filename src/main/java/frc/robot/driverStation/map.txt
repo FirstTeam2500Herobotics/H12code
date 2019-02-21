@@ -1,0 +1,16 @@
+Con1
+- stick 1: Arcade Drive
+- Y button: Invert Drive
+
+Con2
+- Left Trigger: Panel Lift up
+- Right Trigger: Panel Lift down
+
+- LB: Intake Ball
+- Right Stick: Ball carriage in out
+
+- Left Stick: Cargo Lift up down
+
+- Y: Extend/Retract Ball intake
+- B: Panel Open/Close
+- A: Panel In/Out

@@ -14,8 +14,8 @@ public class TeleOp extends Command{
     protected void execute(){
     	Chassis chassis = Chassis.getInstance();
     	//Get the values that the motors should be moving at and set them
-    	double turnValue = Controller.getInstance().getTurn();
-    	double moveValue = Controller.getInstance().getMove();
+    	double turnValue = Controller.getInstance().getChassisTurn();
+    	double moveValue = Controller.getInstance().getChassisMove();
     	chassis.arcadeDrive(moveValue, turnValue);
     }
     

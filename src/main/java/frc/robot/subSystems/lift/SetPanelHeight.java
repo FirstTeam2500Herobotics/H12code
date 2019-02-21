@@ -2,7 +2,7 @@ package frc.robot.subSystems.lift;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class SetHeight extends PIDCommand {
+public class SetPanelHeight extends PIDCommand {
 
     private final static double P = 1.0;
     private final static double I = 0.0;
@@ -12,7 +12,7 @@ public class SetHeight extends PIDCommand {
 
     private double target;
 
-    public SetHeight(double target, double timeout){
+    public SetPanelHeight(double target, double timeout){
         super("Drive",P, I, D);
         requires(Lift.getInstance());
 
@@ -24,22 +24,18 @@ public class SetHeight extends PIDCommand {
     }
 
     public void initialize(){
-        //Make sure everything is 0 ed properly
-        Lift.getInstance().resetEncoder();
-
-        System.out.println("Setting Lift to: " + target);
+        System.out.println("Setting Panel Lift to: " + target);
         getPIDController().setSetpoint(target);
-
     }
 
     @Override
     protected double returnPIDInput() {
-        return Lift.getInstance().getHeight();
+        return Lift.getInstance().getPanelHeight();
     }
 
     @Override
     protected void usePIDOutput(double output) {
-        Lift.getInstance().setSpeed(output);
+        Lift.getInstance().setPanelSpeed(output);
     }
 
     protected boolean isFinished() {
