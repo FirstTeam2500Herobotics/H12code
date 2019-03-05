@@ -4,7 +4,6 @@ import frc.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Solenoid;
 
 public class BallCarriage extends Subsystem {
 

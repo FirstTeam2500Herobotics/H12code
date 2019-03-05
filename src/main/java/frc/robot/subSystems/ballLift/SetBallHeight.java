@@ -1,20 +1,18 @@
-package frc.robot.subSystems.lift;
+package frc.robot.subSystems.ballLift;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class SetPanelHeight extends PIDCommand {
+public class SetBallHeight extends PIDCommand {
 
     private final static double P = 1.0;
     private final static double I = 0.0;
     private final static double D = 0.1;
 
-    private final static double sP = -0.1;
-
     private double target;
 
-    public SetPanelHeight(double target, double timeout){
+    public SetBallHeight(double target, double timeout){
         super("Drive",P, I, D);
-        requires(Lift.getInstance());
+        requires(BallLift.getInstance());
 
         getPIDController().setContinuous(false);
         getPIDController().setAbsoluteTolerance(0.1);
@@ -24,18 +22,18 @@ public class SetPanelHeight extends PIDCommand {
     }
 
     public void initialize(){
-        System.out.println("Setting Panel Lift to: " + target);
+        System.out.println("Setting Ball Lift to: " + target);
         getPIDController().setSetpoint(target);
     }
 
     @Override
     protected double returnPIDInput() {
-        return Lift.getInstance().getPanelHeight();
+        return BallLift.getInstance().getHeight();
     }
 
     @Override
     protected void usePIDOutput(double output) {
-        Lift.getInstance().setPanelSpeed(output);
+        BallLift.getInstance().setSpeed(output);
     }
 
     protected boolean isFinished() {

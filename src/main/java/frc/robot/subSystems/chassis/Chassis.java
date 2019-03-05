@@ -23,11 +23,7 @@ public class Chassis extends Subsystem{
 		   instance = new Chassis();
 	
 		return instance;
-    }
-	
-    //To get this number put the robot on the ground with a test program that just prints encoder distance to the console.
-	//After that push the robot in a straight line for x inches (I do like 250) then divide that by the number you got (ie. 250/13208.5)
-	private static final double ENCODER_PULSE_RATE = 250/13208.5;
+  }
 	
 	//The drive wheels and the encoders that go with them
 	private Talon leftMotor;
@@ -50,9 +46,9 @@ public class Chassis extends Subsystem{
 		rightMotor = new Talon(RobotMap.DRIVE_RIGHT_MOTOR);
 		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODER1,RobotMap.DRIVE_RIGHT_ENCODER2);
 
-		leftEncoder.setDistancePerPulse(ENCODER_PULSE_RATE);
+		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_ENCODER_PULSE_RATE);
 		//The right is negitive because it is a mirror of the left side
-		rightEncoder.setDistancePerPulse(-ENCODER_PULSE_RATE);
+		rightEncoder.setDistancePerPulse(-RobotMap.DRIVE_ENCODER_PULSE_RATE);
 		
 		// gyro = new AHRS(SPI.Port.kMXP);
 

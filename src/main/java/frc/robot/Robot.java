@@ -2,8 +2,7 @@ package frc.robot;
 
 import frc.robot.autonomous.BaseLine;
 
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
 	//Things for the dashboard for picking auto
 	Command autonomousCommand;
@@ -29,10 +28,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		//Adds a box in the dropdown for each auto mode (default auto if none picked is baseline)
-		autonomousChooser.addDefault("Base Line", "Base Line");
+		// autonomousChooser.addDefault("Base Line", "Base Line");
 		SmartDashboard.putData("Auto mode", autonomousChooser);
-		
-		CameraServer.getInstance().startAutomaticCapture();
 	}
 	
 	/**
