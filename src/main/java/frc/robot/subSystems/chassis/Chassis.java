@@ -26,24 +26,30 @@ public class Chassis extends Subsystem{
   }
 	
 	//The drive wheels and the encoders that go with them
-	private Talon leftMotor;
+	private Talon leftMotor1;
+	private Talon leftMotor2;
 	private Encoder leftEncoder;
 
-	private Talon rightMotor;
+	private Talon rightMotor1;
+	private Talon rightMotor2;
 	private Encoder rightEncoder;
 
 	//Scaler for if we want to switch the direction
 	public double driveScale = 1;
+
+	public boolean invertDrive = true;
 
 	// private AHRS gyro;
 
 	private DigitalOutput frontLED;
 
 	public Chassis(){
-		leftMotor = new Talon(RobotMap.DRIVE_LEFT_MOTOR);
+		leftMotor1 = new Talon(RobotMap.DRIVE_LEFT_MOTOR1);
+		leftMotor2 = new Talon(RobotMap.DRIVE_LEFT_MOTOR2);
 		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODER1,RobotMap.DRIVE_LEFT_ENCODER2);
 
-		rightMotor = new Talon(RobotMap.DRIVE_RIGHT_MOTOR);
+		rightMotor1 = new Talon(RobotMap.DRIVE_RIGHT_MOTOR1);
+		rightMotor2 = new Talon(RobotMap.DRIVE_RIGHT_MOTOR2);
 		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODER1,RobotMap.DRIVE_RIGHT_ENCODER2);
 
 		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_ENCODER_PULSE_RATE);
@@ -54,7 +60,7 @@ public class Chassis extends Subsystem{
 
 		frontLED = new DigitalOutput(RobotMap.DRIVE_DIRECTION_LED);
 
-		reset();
+		this.reset();
 	}
 	
 	//Will always be using arcade drive when nothing else is using it
@@ -124,47 +130,63 @@ public class Chassis extends Subsystem{
 		frontLED.set(!frontLED.get());
 	}
 
-	public void tankDrive(double left,double right){
-		leftMotor.setSpeed(left * driveScale);
-		rightMotor.setSpeed(right * driveScale);
+	/*
+	A mode of drive where you control the wheels of the robots with a left and a right speed
+	Set left to a double between -1 and 1 to set the left speed from -100% to 100% speed
+	Set right to a double between -1 and 1 to set the right speed from -100% to 100% speed
+	*/
+	public void tankDrive(double left, double right){
+		leftMotor1.setSpeed(left * driveScale);
+		leftMotor2.setSpeed(left * driveScale);
+		rightMotor1.setSpeed(right * driveScale);
+		rightMotor2.setSpeed(right * driveScale);
 	}
 	
+	/*
+	A mode of drive where you control the wheels with a forword and a rotation value
+	Set the throttle to a double between -1 and 1 to set the forword speed from -100% to 100%
+	Set the turn to a double between -1 and 1 to set the rotation speed from -100% to 100%
+	Set the square to a boolean to true to square the inputs of the throttel and turn values
+	*/
 	public void arcadeDrive(double throttle, double turn, boolean square){
 
-	    double leftMotorOutput;
-	    double rightMotorOutput;
+		if(invertDrive){
+			throttle *= -1;
+		}
+		double leftMotorOutput;
+		double rightMotorOutput;
 
-	    //Square inputs preserving sign
-	    if(square){
+	   //Square inputs preserving sign
+	  if(square){
 			throttle = throttle * throttle * (throttle / Math.abs(throttle));
-            turn = turn * turn * (turn / Math.abs(turn));
+      turn = turn * turn * (turn / Math.abs(turn));
 		}
 
 		//Get the largest value for any input
-	    double maxInput = Math.copySign(Math.max(Math.abs(throttle), Math.abs(turn)), throttle);
+		double maxInput = Math.copySign(Math.max(Math.abs(throttle), Math.abs(turn)), throttle);
 
-	    if (throttle >= 0.0) {
-	      // First quadrant, else second quadrant
-	      if (turn >= 0.0) {
-	        leftMotorOutput = maxInput;
-	        rightMotorOutput = throttle - turn;
-	      } else {
-	        leftMotorOutput = throttle + turn;
-	        rightMotorOutput = maxInput;
-	      }
-	    }
-	    else {
-	      // Third quadrant, else fourth quadrant
-	      if (turn >= 0.0) {
-	        leftMotorOutput = throttle + turn;
-	        rightMotorOutput = maxInput;
-	      } else {
-	        leftMotorOutput = maxInput;
-	        rightMotorOutput = throttle - turn;
-	      }
-	    }
-	    
-	    tankDrive(leftMotorOutput,rightMotorOutput * -1);
+		if (throttle >= 0.0) {
+			// First quadrant, else second quadrant
+			if (turn >= 0.0) {
+				leftMotorOutput = maxInput;
+				rightMotorOutput = throttle - turn;
+			} else {
+				leftMotorOutput = throttle + turn;
+				rightMotorOutput = maxInput;
+			}
+		}
+		else {
+			// Third quadrant, else fourth quadrant
+			if (turn >= 0.0) {
+				leftMotorOutput = throttle + turn;
+				rightMotorOutput = maxInput;
+			} else {
+				leftMotorOutput = maxInput;
+				rightMotorOutput = throttle - turn;
+			}
+		}
+		
+		tankDrive(leftMotorOutput,rightMotorOutput * -1);
 	}
 
 	public void arcadeDrive(double throttle, double turn) {

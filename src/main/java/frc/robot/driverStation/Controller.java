@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subSystems.ballIntake.SetBallIntakeWheels;
 import frc.robot.subSystems.ballIntake.ToggleBallIntake;
+import frc.robot.subSystems.chassis.InvertDrive;
 import frc.robot.subSystems.panel.ToggleActuator;
 import frc.robot.subSystems.panel.ToggleExtender;
 
@@ -34,14 +35,18 @@ public class Controller {
     	resetDriverstaion();
 
 		//Bind all of the buttons to commands
-		new JoystickButton(coPilot, GamePad.Button.B).whenPressed(new ToggleActuator());
-		new JoystickButton(coPilot, GamePad.Button.A).whenPressed(new ToggleExtender());
+		new JoystickButton(pilot, GamePad.Button.A).whenPressed(new ToggleActuator());
+		new JoystickButton(pilot, GamePad.Button.B).whenPressed(new ToggleExtender());
 
-		new JoystickButton(coPilot, GamePad.Button.Y).whenPressed(new ToggleBallIntake());
+		// new JoystickButton(pilot, GamePad.Button.Y).whenPressed(new ToggleBallIntake());
+
+		new JoystickButton(pilot, GamePad.Button.BACK).whenPressed(new ToggleCammera());
 		
-		JoystickButton CoLB = new JoystickButton(coPilot, GamePad.Button.LB);
-		CoLB.whenPressed(new SetBallIntakeWheels(1));
-		CoLB.whenReleased(new SetBallIntakeWheels(0));
+		new JoystickButton(pilot, GamePad.Button.START).whenPressed(new InvertDrive());
+		
+		// JoystickButton CoLB = new JoystickButton(pilot, GamePad.Button.LB);
+		// CoLB.whenPressed(new SetBallIntakeWheels(1));
+		// CoLB.whenReleased(new SetBallIntakeWheels(0));
 	}
 	
 	//make the spots on the dashboard for everything

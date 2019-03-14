@@ -1,7 +1,11 @@
 package frc.robot;
 
 import frc.robot.autonomous.BaseLine;
-
+import frc.robot.subSystems.chassis.Chassis;
+import frc.robot.subSystems.panel.Panel;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,11 +20,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends TimedRobot {
-
 	//Things for the dashboard for picking auto
 	Command autonomousCommand;
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();
 	
+	// public static UsbCamera cam0 = new UsbCamera("cam0", 0);
+	// public static UsbCamera cam1 = new UsbCamera("cam1", 1);
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -30,6 +36,9 @@ public class Robot extends TimedRobot {
 		//Adds a box in the dropdown for each auto mode (default auto if none picked is baseline)
 		// autonomousChooser.addDefault("Base Line", "Base Line");
 		SmartDashboard.putData("Auto mode", autonomousChooser);
+		CameraServer.getInstance().startAutomaticCapture(0);
+		Chassis.getInstance();
+		Panel.getInstance();
 	}
 	
 	/**
