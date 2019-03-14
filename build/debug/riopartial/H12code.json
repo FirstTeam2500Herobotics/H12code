@@ -1,9 +1,0 @@
-[
-  {
-    "artifact": "frcJava (in project H12code)",
-    "target": "roborio",
-    "debugfile": "frcJava_roborio.debugconfig",
-    "project": "H12code",
-    "language": "java"
-  }
-]

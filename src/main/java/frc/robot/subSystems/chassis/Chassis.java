@@ -150,43 +150,43 @@ public class Chassis extends Subsystem{
 	*/
 	public void arcadeDrive(double throttle, double turn, boolean square){
 
-		if(invertDrive){
-			throttle *= -1;
-		}
-		double leftMotorOutput;
-		double rightMotorOutput;
+	if(invertDrive){
+		throttle *= -1;
+	}
+	double leftMotorOutput;
+	double rightMotorOutput;
 
-	   //Square inputs preserving sign
-	  if(square){
-			throttle = throttle * throttle * (throttle / Math.abs(throttle));
-      turn = turn * turn * (turn / Math.abs(turn));
-		}
+	//Square inputs preserving sign
+	if(square){
+		throttle = throttle * throttle * (throttle / Math.abs(throttle));
+      	turn = turn * turn * (turn / Math.abs(turn));
+	}
 
-		//Get the largest value for any input
-		double maxInput = Math.copySign(Math.max(Math.abs(throttle), Math.abs(turn)), throttle);
+	//Get the largest value for any input
+	double maxInput = Math.copySign(Math.max(Math.abs(throttle), Math.abs(turn)), throttle);
 
-		if (throttle >= 0.0) {
-			// First quadrant, else second quadrant
-			if (turn >= 0.0) {
-				leftMotorOutput = maxInput;
-				rightMotorOutput = throttle - turn;
-			} else {
-				leftMotorOutput = throttle + turn;
-				rightMotorOutput = maxInput;
-			}
+	if (throttle >= 0.0) {
+		// First quadrant, else second quadrant
+		if (turn >= 0.0) {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = throttle - turn;
+		} else {
+			leftMotorOutput = throttle + turn;
+			rightMotorOutput = maxInput;
 		}
-		else {
-			// Third quadrant, else fourth quadrant
-			if (turn >= 0.0) {
-				leftMotorOutput = throttle + turn;
-				rightMotorOutput = maxInput;
-			} else {
-				leftMotorOutput = maxInput;
-				rightMotorOutput = throttle - turn;
-			}
+	}
+	else {
+		// Third quadrant, else fourth quadrant
+		if (turn >= 0.0) {
+			leftMotorOutput = throttle + turn;
+			rightMotorOutput = maxInput;
+		} else {
+			leftMotorOutput = maxInput;
+			rightMotorOutput = throttle - turn;
 		}
-		
-		tankDrive(leftMotorOutput,rightMotorOutput * -1);
+	}
+	
+	tankDrive(leftMotorOutput,rightMotorOutput * -1);
 	}
 
 	public void arcadeDrive(double throttle, double turn) {
