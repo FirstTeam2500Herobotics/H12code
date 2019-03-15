@@ -1,7 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SPI;
-
 public class RobotMap {
 	//All of the ports eveything is pluged into
 	

@@ -42,18 +42,22 @@ public class Chassis extends Subsystem{
 	private DigitalOutput frontLED;
 
 	public Chassis(){
+		//Setting up everything for the right side of the left
 		leftMotor1 = new Talon(RobotMap.DRIVE_LEFT_MOTOR1);
 		leftMotor2 = new Talon(RobotMap.DRIVE_LEFT_MOTOR2);
 		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODER1,RobotMap.DRIVE_LEFT_ENCODER2);
 
+		//Setting up everything for the left side of the robot
 		rightMotor1 = new Talon(RobotMap.DRIVE_RIGHT_MOTOR1);
 		rightMotor2 = new Talon(RobotMap.DRIVE_RIGHT_MOTOR2);
 		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODER1,RobotMap.DRIVE_RIGHT_ENCODER2);
 
+		//Setting the pulse rate of then encoders to give us convenient units (inches)
 		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_ENCODER_PULSE_RATE);
 		//The right is negitive because it is a mirror of the left side
 		rightEncoder.setDistancePerPulse(-RobotMap.DRIVE_ENCODER_PULSE_RATE);
 		
+		//Setting up the gyroscope
 		// gyro = new AHRS(SPI.Port.kMXP);
 
 		frontLED = new DigitalOutput(RobotMap.DRIVE_DIRECTION_LED);
@@ -158,6 +162,7 @@ public class Chassis extends Subsystem{
 			turn = turn * turn * (turn / Math.abs(turn));
 		}
 
+		//Code from: http://firstfrc.blob.core.windows.net/frc2019/Manual/TeamUpdates/TeamUpdate14.pdf
 		//Get the largest value for any input
 		double maxInput = Math.max(Math.abs(throttle), Math.abs(turn));
 		double difference = throttle - turn;

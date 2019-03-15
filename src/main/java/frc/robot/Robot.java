@@ -1,11 +1,8 @@
 package frc.robot;
 
-import frc.robot.autonomous.BaseLine;
 import frc.robot.subSystems.chassis.Chassis;
 import frc.robot.subSystems.panel.Panel;
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -36,7 +33,8 @@ public class Robot extends TimedRobot {
 		//Adds a box in the dropdown for each auto mode (default auto if none picked is baseline)
 		// autonomousChooser.addDefault("Base Line", "Base Line");
 		SmartDashboard.putData("Auto mode", autonomousChooser);
-		CameraServer.getInstance().startAutomaticCapture(0);
+		CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+		CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 		Chassis.getInstance();
 		Panel.getInstance();
 	}
@@ -55,8 +53,8 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		//Check what auto is picked
 		switch(autonomousChooser.getSelected()){
-		case "Base Line":
-			autonomousCommand = new BaseLine();
+		// case "Base Line":
+		// 	autonomousCommand = new BaseLine();
 		default:
 			System.out.println("No auto picked");
 			break;
@@ -89,7 +87,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
 		Scheduler.getInstance().run();
 	}
 }
