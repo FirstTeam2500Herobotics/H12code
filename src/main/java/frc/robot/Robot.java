@@ -51,13 +51,15 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		//Check what auto is picked
-		switch(autonomousChooser.getSelected()){
-		// case "Base Line":
-		// 	autonomousCommand = new BaseLine();
-		default:
-			System.out.println("No auto picked");
-			break;
+		if(autonomousChooser.getSelected() != null){
+			//Check what auto is picked
+			switch(autonomousChooser.getSelected()){
+			// case "Base Line":
+			// 	autonomousCommand = new BaseLine();
+			default:
+				System.out.println("No auto picked");
+				break;
+			}
 		}
 
 		//Start running whatever auto is picked
@@ -71,15 +73,15 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		//Run auto
 		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when teleop starts running.
-		if (autonomousCommand != null)
+		if (autonomousCommand != null){
 			autonomousCommand.cancel();
+		}
 	}
 
 	/**
