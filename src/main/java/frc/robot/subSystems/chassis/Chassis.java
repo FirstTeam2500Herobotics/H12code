@@ -37,8 +37,6 @@ public class Chassis extends Subsystem{
 	//Scaler for if we want to switch the direction
 	public double driveScale = 1;
 
-	public boolean invertDrive = true;
-
 	// private AHRS gyro;
 
 	private DigitalOutput frontLED;
@@ -149,44 +147,50 @@ public class Chassis extends Subsystem{
 	Set the square to a boolean to true to square the inputs of the throttel and turn values
 	*/
 	public void arcadeDrive(double throttle, double turn, boolean square){
-
-	if(invertDrive){
-		throttle *= -1;
-	}
-	double leftMotorOutput;
-	double rightMotorOutput;
-
-	//Square inputs preserving sign
-	if(square){
-		throttle = throttle * throttle * (throttle / Math.abs(throttle));
-      	turn = turn * turn * (turn / Math.abs(turn));
-	}
-
-	//Get the largest value for any input
-	double maxInput = Math.copySign(Math.max(Math.abs(throttle), Math.abs(turn)), throttle);
-
-	if (throttle >= 0.0) {
-		// First quadrant, else second quadrant
-		if (turn >= 0.0) {
-			leftMotorOutput = maxInput;
-			rightMotorOutput = throttle - turn;
-		} else {
-			leftMotorOutput = throttle + turn;
-			rightMotorOutput = maxInput;
+		//If we are using drive scale it invert the drive then invert the steering
+		if(driveScale < 0){
+			turn *= -1;
 		}
-	}
-	else {
-		// Third quadrant, else fourth quadrant
-		if (turn >= 0.0) {
-			leftMotorOutput = throttle + turn;
-			rightMotorOutput = maxInput;
-		} else {
-			leftMotorOutput = maxInput;
-			rightMotorOutput = throttle - turn;
+
+		//Square inputs preserving sign
+		if(square){
+			throttle = throttle * throttle * (throttle / Math.abs(throttle));
+			turn = turn * turn * (turn / Math.abs(turn));
 		}
-	}
-	
-	tankDrive(leftMotorOutput,rightMotorOutput * -1);
+
+		//Get the largest value for any input
+		double maxInput = Math.max(Math.abs(throttle), Math.abs(turn));
+		double difference = throttle - turn;
+		double total = throttle + turn;
+
+		double leftMotorOutput;
+		double rightMotorOutput;
+		if (throttle >= 0.0) {
+			//First quadrant
+			if (turn >= 0.0) {
+				leftMotorOutput = maxInput;
+				rightMotorOutput = difference;
+			}
+			//Second quadrant
+			else {
+				leftMotorOutput = total;
+				rightMotorOutput = maxInput;
+			}
+		}
+		else {
+			//Fourth quadrant
+			if (turn >= 0.0) {
+				leftMotorOutput = total;
+				rightMotorOutput = -maxInput;
+			}
+			//Third quadrant
+			else {
+				leftMotorOutput = -maxInput;
+				rightMotorOutput = difference;
+			}
+		}
+		
+		tankDrive(leftMotorOutput,rightMotorOutput * -1);
 	}
 
 	public void arcadeDrive(double throttle, double turn) {

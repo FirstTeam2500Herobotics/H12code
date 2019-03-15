@@ -76,6 +76,8 @@ public class Controller {
 	public double getChassisMove(){
 		double value = handleDeadband(pilot.getRawAxis(GamePad.Axis.LEFT_Y));
 		SmartDashboard.putNumber("Chassis Rotation", value);
+
+		value *= -1;
 		return value;
 	}
 	
