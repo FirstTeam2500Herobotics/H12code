@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TeleOp extends Command {
 
     public TeleOp() {
-    	requires(BallLift.getInstance());
+        requires(BallLift.getInstance());
     }
 
     // Called repeatedly when this Command is scheduled to run

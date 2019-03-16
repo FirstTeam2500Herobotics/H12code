@@ -9,8 +9,8 @@ public class FastZeroBallLift extends Command {
 
         setTimeout(timeout);
     }
-    
-    public void execute(){
+
+    public void execute() {
         BallLift.getInstance().setSpeed(-1);
     }
 

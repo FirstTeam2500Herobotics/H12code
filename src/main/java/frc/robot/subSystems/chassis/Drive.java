@@ -3,11 +3,11 @@ package frc.robot.subSystems.chassis;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Drive extends CommandGroup {
-	
-	public Drive(double distence,double degrees, double timeout){
-		//Turn to a degree
-    	addSequential(new Rotate(degrees,timeout));
-    	//Move a distance
-    	addSequential(new DriveDist(distence,timeout));
+
+	public Drive(double distence, double degrees, double timeout) {
+		// Turn to a degree
+		addSequential(new Rotate(degrees, timeout));
+		// Move a distance
+		addSequential(new DriveDist(distence, timeout));
 	}
 }

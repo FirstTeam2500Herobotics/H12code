@@ -7,28 +7,28 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class PanelLift extends Subsystem{
+public class PanelLift extends Subsystem {
 
 	public static PanelLift instance;
 
-	public static PanelLift getInstance(){
-		if (instance == null){
+	public static PanelLift getInstance() {
+		if (instance == null) {
 			instance = new PanelLift();
 		}
 
 		return instance;
-  	}
+	}
 
 	private Talon winch;
 	private Encoder encoder;
 
-	public PanelLift(){
+	public PanelLift() {
 		winch = new Talon(RobotMap.PANEL_LIFT_MOTOR);
 		encoder = new Encoder(RobotMap.PANEL_LIFT_ENCODER1, RobotMap.PANEL_LIFT_ENCODER2);
 		encoder.setDistancePerPulse(RobotMap.PANEL_LIFT_ENCODER_PULSE_RATE);
 	}
 
-	public void setSpeed(double speed){
+	public void setSpeed(double speed) {
 		winch.set(speed);
 	}
 
@@ -40,8 +40,8 @@ public class PanelLift extends Subsystem{
 		encoder.reset();
 	}
 
-	//TODO:
-	public boolean getZeroSwitch(){
+	// TODO:
+	public boolean getZeroSwitch() {
 		return false;
 	}
 

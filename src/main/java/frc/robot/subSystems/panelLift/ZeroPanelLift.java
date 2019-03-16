@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ZeroPanelLift extends CommandGroup {
 
     public ZeroPanelLift() {
-        //Quickly get to the bottom of the lift
+        // Quickly get to the bottom of the lift
         addSequential(new FastZeroPanelLift(10));
-        //Move a tiny bit up
-        addSequential(new SetPanelHeight(1,1));
-        //Move slower to the bottom to get an exact 0
+        // Move a tiny bit up
+        addSequential(new SetPanelHeight(1, 1));
+        // Move slower to the bottom to get an exact 0
         addSequential(new SlowZeroPanelLift(10));
     }
 

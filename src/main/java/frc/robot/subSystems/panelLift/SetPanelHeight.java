@@ -10,8 +10,8 @@ public class SetPanelHeight extends PIDCommand {
 
     private double target;
 
-    public SetPanelHeight(double target, double timeout){
-        super("Drive",P, I, D);
+    public SetPanelHeight(double target, double timeout) {
+        super("Drive", P, I, D);
         requires(PanelLift.getInstance());
 
         getPIDController().setContinuous(false);
@@ -21,7 +21,7 @@ public class SetPanelHeight extends PIDCommand {
         this.target = target;
     }
 
-    public void initialize(){
+    public void initialize() {
         System.out.println("Setting Panel Lift to: " + target);
         getPIDController().setSetpoint(target);
     }

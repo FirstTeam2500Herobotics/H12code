@@ -30,8 +30,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		// Adds a box in the dropdown for each auto mode (default auto if none picked is
-		// baseline)
+		// Adds a box in the dropdown for each auto mode (default auto if none picked is baseline)
 		// autonomousChooser.addDefault("Base Line", "Base Line");
 		SmartDashboard.putData("Auto mode", autonomousChooser);
 		// Set up the cammeras

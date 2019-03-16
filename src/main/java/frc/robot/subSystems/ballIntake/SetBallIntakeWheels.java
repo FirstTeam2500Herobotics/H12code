@@ -6,7 +6,7 @@ public class SetBallIntakeWheels extends Command {
 
     private double speed;
 
-    public SetBallIntakeWheels(double speed){
+    public SetBallIntakeWheels(double speed) {
         this.speed = speed;
     }
 

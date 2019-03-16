@@ -7,8 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TeleOp extends Command {
 
     public TeleOp() {
-    	requires(PanelLift.getInstance());
+        requires(PanelLift.getInstance());
     }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         PanelLift.getInstance().setSpeed(Controller.getInstance().getPanelLiftSpeed());

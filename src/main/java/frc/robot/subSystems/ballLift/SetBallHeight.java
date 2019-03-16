@@ -10,8 +10,8 @@ public class SetBallHeight extends PIDCommand {
 
     private double target;
 
-    public SetBallHeight(double target, double timeout){
-        super("Drive",P, I, D);
+    public SetBallHeight(double target, double timeout) {
+        super("Drive", P, I, D);
         requires(BallLift.getInstance());
 
         getPIDController().setContinuous(false);
@@ -21,7 +21,7 @@ public class SetBallHeight extends PIDCommand {
         this.target = target;
     }
 
-    public void initialize(){
+    public void initialize() {
         System.out.println("Setting Ball Lift to: " + target);
         getPIDController().setSetpoint(target);
     }

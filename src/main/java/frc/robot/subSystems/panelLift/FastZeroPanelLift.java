@@ -9,8 +9,8 @@ public class FastZeroPanelLift extends Command {
 
         setTimeout(timeout);
     }
-    
-    public void execute(){
+
+    public void execute() {
         PanelLift.getInstance().setSpeed(-1);
     }
 

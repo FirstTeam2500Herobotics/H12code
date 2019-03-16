@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class BaseLine extends CommandGroup {
 
     public BaseLine() {
-    	
-    	addSequential(new DriveDist(AutoDistances.BaseLine.DISTANCE, AutoDistances.BaseLine.TIME_OUT));
+
+        addSequential(new DriveDist(AutoDistances.BaseLine.DISTANCE, AutoDistances.BaseLine.TIME_OUT));
     }
 }

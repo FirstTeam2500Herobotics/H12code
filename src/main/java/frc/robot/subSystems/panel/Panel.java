@@ -5,12 +5,12 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Panel extends Subsystem{
+public class Panel extends Subsystem {
 
-public static Panel instance;
+	public static Panel instance;
 
-	public static Panel getInstance(){
-		if (instance == null){
+	public static Panel getInstance() {
+		if (instance == null) {
 			instance = new Panel();
 		}
 
@@ -20,7 +20,7 @@ public static Panel instance;
 	private Solenoid extender;
 	private Solenoid actuator;
 
-	public Panel(){
+	public Panel() {
 		extender = new Solenoid(RobotMap.PANEL_EXTENDER_SOLENOID);
 		actuator = new Solenoid(RobotMap.PANEL_ACTUATOR_SOLENOID);
 	}
@@ -43,6 +43,6 @@ public static Panel instance;
 
 	@Override
 	protected void initDefaultCommand() {
-		
+
 	}
 }
